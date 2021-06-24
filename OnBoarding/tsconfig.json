@@ -1,0 +1,63 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "jsx": "react-native",
+    "lib": [
+      "es6"
+    ],
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "alwaysShowRuleFailuresAsWarnings": false,
+        "ignoreDefinitionFiles": true,
+        "configFile": "./tslint.json",
+        "suppressWhileTypeErrorsPresent": false
+      }
+    ],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "strict": true,
+    "target": "esnext",
+    "baseUrl": "./src",
+    "paths": {
+      "@actions/*": ["actions/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@config/*": ["config/*"],
+      "@enums/*": ["enums/*"],
+      "@error-handlers/*": ["error-handlers/*"],
+      "@hocs/*": ["hocs/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@i18n": ["internationalization/i18n.ts"],
+      "@models/*": ["models/*"],
+      "@navigation/*": ["navigation/*"],
+      "@overlays/*": ["overlays/*"],
+      "@providers/*": ["providers/*"],
+      "@reducers/*": ["reducers/*"],
+      "@sagas/*": ["sagas/*"],
+      "@screens/*": ["screens/*"],
+      "@services/*": ["services/*"],
+      "@store/*": ["store/*"],
+      "@themes/*": ["themes/*"],
+      "@utils/*": ["utils/*"],
+      "@validators/*": ["validators/*"]
+    }
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ]
+}

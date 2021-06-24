@@ -1,0 +1,72 @@
+{
+  "name": "onboarding",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "npx react-native start",
+    "test": "jest",
+    "lint": "tslint --project tsconfig.json",
+    "postinstall": "npx jetify; patch-package"
+  },
+  "dependencies": {
+    "@eva-design/dss": "^1.2.0",
+    "@eva-design/eva": "^1.2.0",
+    "@eva-design/processor": "^1.2.0",
+    "@react-native-community/async-storage": "^1.6.1",
+    "@redux-saga/core": "1.0.3",
+    "lodash": "^4.17.15",
+    "moment": "2.27.0",
+    "react": "17.0.1",
+    "react-native": "0.64.2",
+    "react-native-dark-mode": "^0.2.2",
+    "react-native-device-info": "^5.2.1",
+    "react-native-gesture-handler": "^1.6.0",
+    "react-native-linear-gradient": "2.5.6",
+    "react-native-navigation": "6.10.1",
+    "react-native-splash-screen": "^3.2.0",
+    "react-native-svg": "^12.1.0",
+    "react-native-ui-kitten": "^4.2.0",
+    "react-native-vector-icons": "^8.1.0",
+    "react-redux": "^7.1.0",
+    "redux": "4.0.4",
+    "redux-devtools-extension": "^2.13.5",
+    "redux-saga": "1.0.5",
+    "rxjs": "^6.5.3"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/runtime": "^7.12.13",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "@types/jest": "^24.0.18",
+    "@types/lodash": "^4.14.138",
+    "@types/react": "^16.9.2",
+    "@types/react-native": "^0.60.7",
+    "@types/react-native-vector-icons": "^6.4.6",
+    "@types/react-redux": "^7.1.2",
+    "@types/react-test-renderer": "^16.9.0",
+    "babel-jest": "^26.6.3",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "core-js": "^3.6.4",
+    "eslint": "^7.19.0",
+    "jest": "^26.6.3",
+    "lodash-decorators": "^6.0.1",
+    "metro-react-native-babel-preset": "^0.65.0",
+    "patch-package": "^6.1.2",
+    "react-dom": "^16.9.0",
+    "react-test-renderer": "16.13.1",
+    "ts-jest": "^25.1.0",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.7"
+  },
+  "jest": {
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
+    ]
+  }
+}
