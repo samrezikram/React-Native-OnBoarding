@@ -5,15 +5,15 @@ import { connect } from 'react-redux';
 import { Layout } from 'react-native-ui-kitten';
 import SplashScreen from 'react-native-splash-screen';
 
+import { Navigator } from '@navigation/navigator';
+
+import { IGlobalState, IAppState, IThemeState } from '@models/app/global-state.model';
+
 import { initAppStateAsync } from '@actions/app.actions';
 import { initThemeStateAsync } from '@actions/theme.actions';
 
 import { IAppScreen } from '@interfaces/app-screen.interface';
 import { IAppScreenProps } from '@interfaces/app-screen-props.interface';
-
-import { IGlobalState, IAppState, IThemeState } from '@models/app/global-state.model';
-import { Navigator } from '@navigation/navigator';
-
 interface IMapDispatchToProps {
   initAppStateAsync: typeof initAppStateAsync;
   initThemeStateAsync: typeof initThemeStateAsync;

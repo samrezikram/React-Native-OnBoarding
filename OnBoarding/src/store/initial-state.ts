@@ -5,9 +5,10 @@ import { ThemeName, ThemeKind } from '@enums/theme-name.enum';
 export function getInitialAppState(): IAppState  {
     return {
         doneInitializing: false,
-        transactionItems: [],
-        isLoadingTransactionItems: false,
-        transactionLoadingError: '',
+        walletItems: [],
+        isLoadingWalletItems: false,
+        walletLoadingError: '',
+        totalWalletCount: 0,
     };
 }
 // ----------------------------------------------

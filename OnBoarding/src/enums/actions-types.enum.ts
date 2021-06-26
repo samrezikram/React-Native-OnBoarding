@@ -12,15 +12,15 @@ export enum GlobalActionsTypes {
 // App Actions Types -------------------------------------------------------------------
 export enum AppActionsTypes {
   // Actions ----
-  SET_IS_LOADING_TRANSACTION_ITEMS = 'set_is_loading_transaction_items',
-  SET_TOTAL_TRANSACTION_COUNT = 'set_total_transaction_count',
-  SET_TRANSACTION_ITEMS = 'set_transaction_items',
-  SET_TRANSACTION_LOADING_ERROR = 'set_trnsaction_loading_error',
+  SET_IS_LOADING_WALLET_ITEMS = 'set_is_loading_wallet_items',
+  SET_TOTAL_WALLET_COUNT = 'set_total_wallet_count',
+  SET_WALLET_ITEMS = 'set_wallet_items',
+  SET_WALLET_LOADING_ERROR = 'set_wallet_loading_error',
 
   // Sagas ------
   INIT_APP_STATE_SAGA = 'init_app_state_saga',
   SET_DONE_INITIALIZING_APP = 'set_done_initializing_app',
-  LOAD_TRANSACTION_LIST_SAGA = 'load_transaction_list_saga'
+  LOAD_WALLET_LIST_SAGA = 'load_wallet_list_saga'
 }
 // -------------------------------------------------------------------------------------
 

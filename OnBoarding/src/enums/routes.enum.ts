@@ -1,8 +1,6 @@
 export enum ScreenRoute {
   APP_INIT_SCREEN = 'app_init_screen',
-  REQUEST_GITHUB_REPO_SCREEN = 'request_github_repo_screen',
   MAIN_SCREEN = 'main_screen',
-  ISSUE_DETAIL_SCREEN = 'issue_detail_screen',
 }
 
 export enum ModalRoute {

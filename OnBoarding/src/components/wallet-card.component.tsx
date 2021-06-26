@@ -1,16 +1,24 @@
 import React from 'react';
-import { View, Image, StyleSheet, Animated, TouchableWithoutFeedback, I18nManager, Platform } from 'react-native';
+import { View, Image, StyleSheet, Animated, TouchableWithoutFeedback, I18nManager, Dimensions } from 'react-native';
 
-import { Layout, Text, withStyles, ThemeType } from 'react-native-ui-kitten';
+import { connect } from 'react-redux';
+import { Layout, Text, withStyles, ThemeType, StyleType } from 'react-native-ui-kitten';
 import LinearGradient from 'react-native-linear-gradient';
 import { bind as autobind, debounce } from 'lodash-decorators';
 
-import { ITransaction } from '@models/app/transaction.model';
+import { IWallet } from '@models/app/wallet.model';
 
 import _ from 'lodash';
+import { IGlobalState } from '@models/app/global-state.model';
+import { ThemeKind } from '@enums/theme-name.enum';
 
  // Debounce Decorator Function Options
  const debOptions: object = {leading: true, trailing: false};
+
+ const walletLogo = require("./../assets/lnd-shape.png");
+ const BitCoinLogo = require("./../assets/btc-shape.png");
+ 
+ let logo: string;
 
 interface IWalletCardState {
   propsAreValid: boolean;
@@ -18,6 +26,11 @@ interface IWalletCardState {
 
 interface IWalletCardProps {
   onPress?: () => void;
+  wallet: IWallet;
+  active: any,
+  index: any,
+  themedStyle?: StyleType;
+  themeKind?: ThemeKind,
 }
 
 class WalletCardComponent extends React.PureComponent<IWalletCardProps, IWalletCardState> {
@@ -37,8 +50,7 @@ class WalletCardComponent extends React.PureComponent<IWalletCardProps, IWalletC
   @debounce(500, debOptions)
   private onPressedInAnimation(): void {
       Animated.spring(this.scaleValue, {
-        toValue: 0.5,
-        duration: 50,
+        toValue: 0.95,
         useNativeDriver: true
       }).start();   
   }
@@ -49,7 +61,6 @@ class WalletCardComponent extends React.PureComponent<IWalletCardProps, IWalletC
   private onPressedOutAnimation(): void {
       Animated.spring(this.scaleValue, {
         toValue: 1.0,
-        duration: 50,
         useNativeDriver: true
       }).start();   
   }
@@ -68,7 +79,7 @@ class WalletCardComponent extends React.PureComponent<IWalletCardProps, IWalletC
     return (
       <View style={[styles.walletHeader]}>
         <Text textBreakStrategy="simple" style={[styles.headerText]}>
-          {'Wallet'}
+          {this.props.wallet.cardType}
         </Text>
       </View>
     );
@@ -83,28 +94,28 @@ class WalletCardComponent extends React.PureComponent<IWalletCardProps, IWalletC
            style={[styles.walletCardRoot, { opacity: 0.5, transform: [{ scale: this.scaleValue }] }]}
            shadowOpacity={25 / 100}
            shadowOffset={{ width: 0, height: 3 }}
-           shadowRadius={8}
-           >
+           shadowRadius={8}>
            {
              <TouchableWithoutFeedback
-              onPressIn={this.onPressedInAnimation()}
-              onPressOut={this.onPressedOutAnimation()}>
-                 <LinearGradient colors={ ['#1ce6eb', '#296fc5', '#3500A2']} style={styles.gradients}> 
+              onPressIn={this.onPressedInAnimation}
+              onPressOut={this.onPressedOutAnimation}
+              onPress={this.onWalletPressed}>
+                 <LinearGradient colors={ ['#1ce6eb', '#296fc5', '#2f5fb3'] } style={styles.gradients}> 
                    <Image style={styles.image} 
-                   source={I18nManager.isRTL ? require('./../../assets/lnd-shape-rtl.png') : require('./../../assets/lnd-shape.png')}/>
+                    source={this.props.wallet.cardType === 'Wallet'? walletLogo : BitCoinLogo}/>
                    <Text style={styles.br} />
                    <Text
                      numberOfLines={1}
                      adjustsFontSizeToFit
                      style={[styles.balance]}>
-                   {'$10.69'}
+                   {`${this.props.wallet.balance}`}
                    </Text>
                    <Text style={styles.br} />
                    <Text numberOfLines={1} style={[styles.cardNumber]}>
-                     {"2720 9949 8572 6875"}
+                     {this.props.wallet.cardNumber}
                    </Text>
                    <Text numberOfLines={1} style={[styles.cardName]}>
-                     {"SAMREZ IKRAM"}
+                     {this.props.wallet.cardHolderName}
                    </Text>
                  </LinearGradient>
              </TouchableWithoutFeedback> 
@@ -117,18 +128,22 @@ class WalletCardComponent extends React.PureComponent<IWalletCardProps, IWalletC
 }
 
 
-const platformIsAndroid: boolean = Platform.OS == 'android';
-
+ // Helpers ----------------------------------------------------------------------------------------------
+ const screenWidth: number = Dimensions.get('window').width;
+ // ------------------------------------------------------------------------------------------------------
+ 
 // Styles ------------------------------------------------------
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 16,
-    overflow: 'hidden'
+    width: screenWidth ,
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   walletHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    resizeMode: 'cover',
     paddingTop: 0,
     marginHorizontal: 16,
   },
@@ -155,7 +170,7 @@ const styles = StyleSheet.create({
   },
    walletCardRoot: {
     marginHorizontal: 16,
-    marginVertical: 17,
+    marginVertical: 12,
   },
   gradients: {
     padding: 15,
@@ -185,8 +200,19 @@ const styles = StyleSheet.create({
    },
 
 });
+
+ // Connecting To Redux ----------------------------------------------------------------------
+ function mapStateToProps(state: IGlobalState): any {
+  return {
+    themeKind: state.theme.themeKind
+  };
+}
+
+const WalletCardComponentConnected = connect(mapStateToProps)(WalletCardComponent);
+
+// -----------
   // Export Component With Style Props From Theme -----------------
-export const WalletCard = withStyles(WalletCardComponent, (theme: ThemeType) => ({
+export const WalletCard = withStyles(WalletCardComponentConnected, (theme: ThemeType) => ({
   cardBorderColor: {
     color: theme['background-basic-color-3']
   }

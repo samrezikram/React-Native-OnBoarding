@@ -18,11 +18,14 @@ export class NavigationInitializer {
   // ----------------------------------
 
   public static init(): void {
-    NavigationInitializer.registerComponent(ScreenRoute.APP_INIT_SCREEN, gestureHandlerRootHOC(AppInitScreen));
-    NavigationInitializer.registerComponent(ScreenRoute.MAIN_SCREEN, gestureHandlerRootHOC(MainScreen));
+    if (!NavigationInitializer.navigationInitializerCalled) {
+      NavigationInitializer.navigationInitializerCalled = true;
+      
+      NavigationInitializer.registerComponent(ScreenRoute.APP_INIT_SCREEN, gestureHandlerRootHOC(AppInitScreen));
+      NavigationInitializer.registerComponent(ScreenRoute.MAIN_SCREEN, gestureHandlerRootHOC(MainScreen));
   
-    NavigationInitializer.registerAppLaunchedListener();
-
+      NavigationInitializer.registerAppLaunchedListener();
+    }
   }
 
   private static registerComponent(componentName: ScreenRoute | ModalRoute | OverlayRoute , ScreenComponent: React.ComponentClass<any, any> | React.ComponentType | any): void {
