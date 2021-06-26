@@ -198,7 +198,6 @@
   }
   // ---------------------
 
-
   public render(): React.ReactElement {
     return (
       <Layout level="2" style={styles.container}>
@@ -235,6 +234,7 @@
                   </TouchableOpacity>
                 </Animated.View>
 
+                {/* potentially i want to add indicators here */}
 
                 {/* Next Button */}
                 <Animated.View style={{transform: [{scale: this.scaleNextButton}], opacity: this.scaleNextButton}}>
