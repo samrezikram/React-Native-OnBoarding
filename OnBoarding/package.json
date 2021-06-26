@@ -29,6 +29,7 @@
     "react-native-svg": "^12.1.0",
     "react-native-ui-kitten": "^4.2.0",
     "react-native-vector-icons": "^8.1.0",
+    "react-native-haptic-feedback": "^1.10.0",
     "react-redux": "^7.1.0",
     "redux": "4.0.4",
     "redux-devtools-extension": "^2.13.5",

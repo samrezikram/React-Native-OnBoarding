@@ -1,12 +1,12 @@
 import { Platform } from 'react-native';
 import { Navigation, Options } from 'react-native-navigation';
 
-
-import _ from 'lodash';
 import { ThemeName } from '@enums/theme-name.enum';
 import { Themes } from '@themes/index';
 import { INavigationHistory, INavigationHistoryItem } from '@models/navigation-history.model';
 import { Navigator } from './navigator';
+
+import _ from 'lodash';
 
 const platformIsAndroid: boolean = Platform.OS == 'android';
 

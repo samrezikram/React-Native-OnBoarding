@@ -1,5 +1,5 @@
 import { ThemeName, ThemeKind } from '@enums/theme-name.enum';
-import { ITransaction } from './transaction.model';
+import { IWallet } from './wallet.model';
 export interface IGlobalState {
     app: IAppState;
     theme: IThemeState;
@@ -7,10 +7,10 @@ export interface IGlobalState {
 
 export interface IAppState {
     doneInitializing?: boolean;
-    totalTransactionCount?: number;
-    transactionItems?: ITransaction[];
-    isLoadingTransactionItems?: boolean;
-    transactionLoadingError?: string;
+    totalWalletCount?: number;
+    walletItems?: IWallet[];
+    isLoadingWalletItems?: boolean;
+    walletLoadingError?: string;
 }
 export interface IThemeState {
     doneInitializing?: boolean;

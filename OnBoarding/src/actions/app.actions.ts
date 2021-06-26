@@ -2,10 +2,10 @@ import { Subject } from 'rxjs';
 
 import {
   IAppActionResult,
-  ITransactionSagaTriggerObject,
+  IWalletSagaTriggerObject,
   ISagaTriggerObject,
 } from '@models/actions-results.model';
-import { ITransaction } from '@models/app/transaction.model';
+import { IWallet } from '@models/app/wallet.model';
 
 import { AppActionsTypes } from '@enums/actions-types.enum';
 
@@ -19,7 +19,7 @@ import { AppActionsTypes } from '@enums/actions-types.enum';
  *
  * @description This should only be called by a saga, not directly from a component
  */
-export function _setDoneInitilizingApp(done: boolean): IAppActionResult {
+export function _setDoneInitializingApp(done: boolean): IAppActionResult {
   const result: IAppActionResult = {
     type: AppActionsTypes.SET_DONE_INITIALIZING_APP,
     payload: {
@@ -30,11 +30,22 @@ export function _setDoneInitilizingApp(done: boolean): IAppActionResult {
 }
 // ----------------------
 
-export function _setIsLoadingTransactionItems(isLoadingTransactionItems: boolean): IAppActionResult {
+export function _setIsLoadingWalletItems(isLoadingWalletItems: boolean): IAppActionResult {
   const result: IAppActionResult = {
-    type: AppActionsTypes.SET_IS_LOADING_TRANSACTION_ITEMS,
+    type: AppActionsTypes.SET_IS_LOADING_WALLET_ITEMS,
     payload: {
-      isLoadingTransactionItems: isLoadingTransactionItems
+      isLoadingWalletItems: isLoadingWalletItems
+    }
+  };
+  return result;
+}
+// ----------------------
+
+export function _setTotalWalletCount(totalWalletCount: number): IAppActionResult {
+  const result: IAppActionResult = {
+    type: AppActionsTypes.SET_TOTAL_WALLET_COUNT,
+    payload: {
+      totalWalletCount: totalWalletCount
     }
   };
   return result;
@@ -43,22 +54,22 @@ export function _setIsLoadingTransactionItems(isLoadingTransactionItems: boolean
 
 
 
-export function _setTransactionItems(transactionItems: ITransaction[]): IAppActionResult {
+export function _setWalletItems(walletItems: IWallet[]): IAppActionResult {
   const result: IAppActionResult = {
-    type: AppActionsTypes.SET_TRANSACTION_ITEMS,
+    type: AppActionsTypes.SET_WALLET_ITEMS,
     payload: {
-      transactionItems: transactionItems
+      walletItems: walletItems
     }
   };
   return result;
 }
 // ----------------------
 
-export function _setTransactionLoadingError(error: string): IAppActionResult {
+export function _setWalletLoadingError(error: string): IAppActionResult {
   const result: IAppActionResult = {
-    type: AppActionsTypes.SET_TRANSACTION_LOADING_ERROR,
+    type: AppActionsTypes.SET_WALLET_LOADING_ERROR,
     payload: {
-      transactionLoadingError: error
+      walletLoadingError: error
     }
   };
   return result;
@@ -68,10 +79,10 @@ export function _setTransactionLoadingError(error: string): IAppActionResult {
 /* ------------------------------------------------------------------ */
 /* ------------------    Saga Triggers    --------------------------- */
 /* ------------------------------------------------------------------ */
-export function loadTransactionItemsAsync(showErrorAlerts?: boolean, onErrorAlertDismissal?: () => void): ITransactionSagaTriggerObject {
+export function loadWalletItemsAsync(showErrorAlerts?: boolean, onErrorAlertDismissal?: () => void): IWalletSagaTriggerObject {
   const _observable: Subject<boolean> = new Subject<boolean>();
-  const result: ITransactionSagaTriggerObject = {
-    type: AppActionsTypes.LOAD_TRANSACTION_LIST_SAGA,
+  const result: IWalletSagaTriggerObject = {
+    type: AppActionsTypes.LOAD_WALLET_LIST_SAGA,
     _observable: _observable,
     promise: _observable.toPromise(),
     payload: {

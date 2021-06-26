@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'kotlin-android'
 
 import com.android.build.OutputFile
 
@@ -121,7 +122,6 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
-    ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -134,6 +134,7 @@ android {
         applicationId "com.onboarding"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        missingDimensionStrategy "RNN.reactNativeVersion", "reactNative62"
         versionCode 1
         versionName "1.0"
     }
@@ -147,20 +148,35 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            if (project.hasProperty('ONBOARDING_STORE_FILE')) {
+                storeFile file(ONBOARDING_STORE_FILE)
+                storePassword ONBOARDING_STORE_PASSWORD
+                keyAlias ONBOARDING_KEY_ALIAS
+                keyPassword ONBOARDING_KEY_PASSWORD
+            }
+        }
+        release {
+            if (project.hasProperty('ONBOARDING_STORE_FILE')) {
+                storeFile file(ONBOARDING_STORE_FILE)
+                storePassword ONBOARDING_STORE_PASSWORD
+                keyAlias ONBOARDING_KEY_ALIAS
+                keyPassword ONBOARDING_KEY_PASSWORD
+            }
         }
     }
+    /* ************************************************************************ */
+
     buildTypes {
         debug {
+            minifyEnabled false
+            signingConfig null
             signingConfig signingConfigs.debug
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            minifyEnabled false
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -187,6 +203,9 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+
+    apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 

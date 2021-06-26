@@ -13,31 +13,31 @@ export function appReducer(state: IAppState = initialState.app, action: IAppActi
         doneInitializing: action.payload.doneInitializing
       } as IAppState;
     // ----------------------------------------------------------
-    case AppActionsTypes.SET_TRANSACTION_ITEMS:
+    case AppActionsTypes.SET_WALLET_ITEMS:
       return {
         ...state,
-        transactionItems: action.payload.transactionItems
+        walletItems: action.payload.walletItems
       } as IAppState;
 
     // ----------------------------------------------------------
-    case AppActionsTypes.SET_IS_LOADING_TRANSACTION_ITEMS:
+    case AppActionsTypes.SET_IS_LOADING_WALLET_ITEMS:
       return {
         ...state,
-        isLoadingTransactionItems: action.payload.isLoadingTransactionItems
+        isLoadingWalletItems: action.payload.isLoadingWalletItems
       } as IAppState;
     // ----------------------------------------------------------
 
-    case AppActionsTypes.SET_TOTAL_TRANSACTION_COUNT:
+    case AppActionsTypes.SET_TOTAL_WALLET_COUNT:
       return {
         ...state,
-        totalTransactionCount: action.payload.totalTransactionCount
+        totalWalletCount: action.payload.totalWalletCount
       } as IAppState;
     // ----------------------------------------------------------
 
-    case AppActionsTypes.SET_TRANSACTION_LOADING_ERROR:
+    case AppActionsTypes.SET_WALLET_LOADING_ERROR:
       return {
         ...state,
-        transactionLoadingError: action.payload.transactionLoadingError
+        walletLoadingError: action.payload.walletLoadingError
       } as IAppState;
     // ----------------------------------------------------------
 

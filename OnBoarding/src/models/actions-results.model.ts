@@ -20,14 +20,12 @@ export interface IAppActionResult {
 
 // Sagas -----------------
 // ----------
-export interface ITransactionSagaTriggerObject extends ISagaTriggerObject {
+export interface IWalletSagaTriggerObject extends ISagaTriggerObject {
   _observable: Subject<boolean>;
   promise: Promise<boolean>;
   payload: {
   }
 }
-
-
 
 // -------------------------------------------------------------------------------------------------------------
 
