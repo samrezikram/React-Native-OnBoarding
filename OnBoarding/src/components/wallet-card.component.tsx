@@ -135,9 +135,13 @@ class WalletCardComponent extends React.PureComponent<IWalletCardProps, IWalletC
 // Styles ------------------------------------------------------
 const styles = StyleSheet.create({
   container: {
-    width: screenWidth ,
+    width: screenWidth/4 ,
     justifyContent: 'center',
     alignContent: 'center',
+  },
+  walletCardRoot: {
+    marginHorizontal: 5,
+    marginVertical: 12,
   },
   walletHeader: {
     flexDirection: 'row',
@@ -150,7 +154,7 @@ const styles = StyleSheet.create({
   headerText: {
     paddingTop: 16,
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: 15,
     color: '#2f5fb3'
   },
   image: {
@@ -165,12 +169,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 36,
-    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-  },
-   walletCardRoot: {
-    marginHorizontal: 16,
-    marginVertical: 12,
+    fontSize: 12,
   },
   gradients: {
     padding: 15,
@@ -185,11 +184,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     fontWeight: 'bold',
     color: 'rgb(192,192,192)',
-    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-    fontSize: 24,
+    fontSize: 10,
   },
   cardName: {
-    fontSize: 16,
+    fontSize: 10,
     fontWeight: 'bold',
     color: 'black',
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',

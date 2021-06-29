@@ -61,13 +61,16 @@
    };
    // ---------------------
 
+   private static isNavigationForward: boolean = true;
+
+
    private readonly testIdPrefix: string = 'main_screen';
   
    private slider: React.RefObject<any> = React.createRef();
 
    componentDidMount(): void {
     this.props.loadWalletItemsAsync();
-    // this.animateBackButton(false);
+    this.animateBackButton(false);
 
    }
    // ---------------------
@@ -124,7 +127,7 @@
   // ---------------------
 
   viewabilityConfig = {
-    viewAreaCoveragePercentThreshold: 50,
+    itemVisiblePercentThreshold: 50,
   };
 
   private scaleBackButton: Animated.Value = new Animated.Value(1);
@@ -154,10 +157,15 @@
   private previousWallet(): void {
     HapticFeedbackService.impactHeavy();
     if(this.state.index <= this.props.totalWalletCount - 1) {
-      if (this.state.index > 0) {
+      console.log("Back index1: " + this.state.index);
+      console.log("index Value1: " + (this.state.index % 4 == 0 ? 4 : (this.state.index % 4) - 1));
+
+
+      MainScreenComponent.isNavigationForward = false;
+      if (this.state.index > 0 ) {
         if (this.slider && this.slider.current) {
           this.slider.current.scrollToIndex({
-            index: this.state.index - 1
+            index: ((this.state.index - 4 < 0 ? 0 : this.state.index - 4))
           });
         }
       }
@@ -166,33 +174,43 @@
   // ---------------------
 
   private onViewableItemsChanged = ({viewableItems, changed}) => {
-    let currentIndex = viewableItems[0].index;
+    let currentIndex = viewableItems[viewableItems.length - 1].index;
+   
+    console.log('currentIndex: ' + currentIndex);
+    console.log('changed: ' + changed[0].index);
 
     if (viewableItems.length > 0) {
-      this.setState({index: currentIndex});
-      if(currentIndex === 0) {
+      if(MainScreenComponent.isNavigationForward) {
+        this.setState({index: currentIndex});
+      } else {
+        this.setState({index: changed[0].index - 1});
+      }
+      if(currentIndex == 0) {
         this.animateBackButton(false);
       }
-      else if(currentIndex === this.props.walletItems.length - 1) {
+      else if(currentIndex == this.props.walletItems.length - 1) {
         this.animateNextButton(false);
       } else {
         this.animateNextButton(true);
         this.animateBackButton(true);
       }
     }
-  };
+    };
   // ---------------------
 
   @autobind
   private nextWallet(): void {
     if(this.state.index < this.props.totalWalletCount - 1) {
       HapticFeedbackService.impactHeavy();
-      if (this.state.index < (this.props.totalWalletCount)) {
-        if (this.slider && this.slider.current) {
-          this.slider.current.scrollToIndex({
-            index: this.state.index + 1
-          });
-        }
+      if (this.slider && this.slider.current) {
+        console.log("index: " + this.state.index);
+        console.log("remainder Value: " + ((this.state.index ) % 4 == 0 ? 4 : (this.state.index % 4) - 1));
+        console.log("Scroll to index: "+ (this.state.index + 1));
+        MainScreenComponent.isNavigationForward = true;
+
+        this.slider.current.scrollToIndex({
+          index: (this.state.index + 1)
+        });
       }
     }
   }
@@ -210,9 +228,6 @@
           showsHorizontalScrollIndicator={false}
           data={this.props.walletItems}
           renderItem={this._renderItem}
-          ItemSeparatorComponent={() => (
-            <View style={{width: 0}} />
-          )}
           keyExtractor={(item, index) => item.toString() + index}
           onViewableItemsChanged={this.onViewableItemsChanged}
           viewabilityConfig={this.viewabilityConfig}
@@ -317,7 +332,8 @@ const screenWidth: number = Dimensions.get('window').width;
   },
   transactionItemContainer: {
     paddingTop: 10,
-    marginBottom: 16
+    marginBottom: 16,
+    width: screenWidth/4
   },
   controlsViewContainer: {
     position: 'absolute',
